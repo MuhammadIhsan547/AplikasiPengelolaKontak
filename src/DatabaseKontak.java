@@ -16,7 +16,7 @@ public class DatabaseKontak {
         Connection conn = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:C:E:\\Keluargaku\\Muhammad Ihsan\\Kuliah\\PBO2\\Latihan3\\DatabaseKontak.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:E:\\Keluargaku\\Muhammad Ihsan\\Kuliah\\PBO2\\Latihan3\\DatabaseKontak.db");
             System.out.println("Koneksi berhasil!");
         } catch (ClassNotFoundException e) {
             System.out.println("Driver SQLite tidak ditemukan: " + e.getMessage());

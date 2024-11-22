@@ -1,9 +1,15 @@
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -98,8 +104,8 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         TombolEditKontak = new javax.swing.JButton();
         TombolHapusKontak = new javax.swing.JButton();
         LabelCariKontak = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        LabelMasukkan = new javax.swing.JLabel();
+        FieldCariKontak = new javax.swing.JTextField();
         TombolCari = new javax.swing.JButton();
         TombolMuatKontak = new javax.swing.JButton();
         TombolSimpanKontak = new javax.swing.JToggleButton();
@@ -125,6 +131,12 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
 
         LabelKategori.setText("Kategori : ");
 
+        FieldMasukkanNomor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FieldMasukkanNomorKeyTyped(evt);
+            }
+        });
+
         ComboBoxKategori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboBoxKategoriActionPerformed(evt);
@@ -139,20 +151,45 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         });
 
         TombolEditKontak.setText("Edit Kontak");
+        TombolEditKontak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TombolEditKontakActionPerformed(evt);
+            }
+        });
 
         TombolHapusKontak.setText("Hapus Kontak");
+        TombolHapusKontak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TombolHapusKontakActionPerformed(evt);
+            }
+        });
 
         LabelCariKontak.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         LabelCariKontak.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelCariKontak.setText("Cari Kontak");
 
-        jLabel4.setText("Masukkan Nomor Atau Nama");
+        LabelMasukkan.setText("Masukkan Nomor Atau Nama");
 
         TombolCari.setText("Cari");
+        TombolCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TombolCariActionPerformed(evt);
+            }
+        });
 
         TombolMuatKontak.setText("Muat Kontak");
+        TombolMuatKontak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TombolMuatKontakActionPerformed(evt);
+            }
+        });
 
         TombolSimpanKontak.setText("Simpan Kontak");
+        TombolSimpanKontak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TombolSimpanKontakActionPerformed(evt);
+            }
+        });
 
         TabelDaftarKontak.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,6 +202,11 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
                 "No", "Nama", "Nomor", "Kategori"
             }
         ));
+        TabelDaftarKontak.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelDaftarKontakMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TabelDaftarKontak);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -178,9 +220,9 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(LabelMasukkan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(FieldCariKontak, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -244,8 +286,8 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
                 .addComponent(LabelCariKontak, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelMasukkan)
+                    .addComponent(FieldCariKontak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TombolCari))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -276,6 +318,20 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ComboBoxKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxKategoriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxKategoriActionPerformed
+
+    private void FieldMasukkanNomorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FieldMasukkanNomorKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        // Jika karakter bukan angka, batalkan event
+        if (!Character.isDigit(c)) {
+            evt.consume(); // Mengabaikan input non-angka
+            JOptionPane.showMessageDialog(null, "Masukkan hanya angka untuk nomor telepon.");
+        }
+    }//GEN-LAST:event_FieldMasukkanNomorKeyTyped
+
     private void TombolTambahKontakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolTambahKontakActionPerformed
         // TODO add your handling code here:
         String nama = FieldMasukkanNama.getText();
@@ -303,14 +359,195 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
         ComboBoxKategori.setSelectedIndex(0);
 
         JOptionPane.showMessageDialog(this, "Kontak berhasil ditambahkan!");
-        MenampilkanKontak   (); // Refresh JTable atau tampilan daftar kontak
-                                
+        MenampilkanKontak();
     }//GEN-LAST:event_TombolTambahKontakActionPerformed
 
-    private void ComboBoxKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxKategoriActionPerformed
+    private void TombolEditKontakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolEditKontakActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxKategoriActionPerformed
+        int selectedRow = TabelDaftarKontak.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih kontak yang ingin diedit", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        String nama = FieldMasukkanNama.getText();
+        String noTelepon = FieldMasukkanNomor.getText();
+        String kategori = (String) ComboBoxKategori.getSelectedItem();
+
+        // Validasi input nama, nomor telepon, dan kategori
+        if (nama.isEmpty() || noTelepon.isEmpty() || kategori == null) {
+            JOptionPane.showMessageDialog(this, "Semua Data Harus Diinput!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validasi panjang nomor telepon
+        if (noTelepon.length() < 10 || noTelepon.length() > 13) {
+            JOptionPane.showMessageDialog(this, "Nomor Telepon Harus Memiliki Panjang Antara 10 Hingga 13 Digit Angka.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Dapatkan id dari baris yang dipilih untuk pengeditan
+        int id = Integer.parseInt(TabelDaftarKontak.getValueAt(selectedRow, 0).toString());
+
+        // Update data kontak di database
+        DatabaseKontak.MemperbaruiKontak(id, nama, noTelepon, kategori);
+
+        JOptionPane.showMessageDialog(this, "Kontak berhasil diperbarui!");
+
+        // Kosongkan semua field setelah edit
+        FieldMasukkanNama.setText("");
+        FieldMasukkanNomor.setText("");
+        ComboBoxKategori.setSelectedIndex(-1);
+        MenampilkanKontak();
+    }//GEN-LAST:event_TombolEditKontakActionPerformed
+
+    private void TombolHapusKontakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolHapusKontakActionPerformed
+        // TODO add your handling code here:
+        int RowDipilih = TabelDaftarKontak.getSelectedRow();
+        if (RowDipilih == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih kontak yang ingin dihapus", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int id = Integer.parseInt(TabelDaftarKontak.getValueAt(RowDipilih, 0).toString());
+
+        // Konfirmasi penghapusan
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus kontak ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            DatabaseKontak.MenghapusKontak(id);
+
+            JOptionPane.showMessageDialog(this, "Kontak berhasil dihapus!");
+
+            // Kosongkan semua field setelah edit
+            FieldMasukkanNama.setText("");
+            FieldMasukkanNomor.setText("");
+            ComboBoxKategori.setSelectedIndex(-1); // Mengatur JComboBox agar tidak ada yang dipilih
+
+            // Refresh JTable atau tampilan daftar kontak
+            MenampilkanKontak(); 
+        }
+    }//GEN-LAST:event_TombolHapusKontakActionPerformed
+
+    private void TombolCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolCariActionPerformed
+        // TODO add your handling code here:
+        String keyword = FieldCariKontak.getText().trim();  // Ambil kata kunci dari JTextField
+
+        // Validasi input pencarian
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Masukkan Nama Atau Nomor Telp Untuk Dicari.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<Map<String, String>> hasilPencarian = DatabaseKontak.MencariKontak(keyword);
+        DefaultTableModel model = (DefaultTableModel) TabelDaftarKontak.getModel();
+        model.setRowCount(0); // Bersihkan tabel
+
+        // Tampilkan hasil pencarian di JTable
+        for (Map<String, String> data : hasilPencarian) {
+            model.addRow(new Object[]{
+                data.get("id"),
+                data.get("nama"),
+                data.get("no_telepon"),
+                data.get("kategori")
+            });
+        }
+    }//GEN-LAST:event_TombolCariActionPerformed
+
+    private void TabelDaftarKontakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelDaftarKontakMouseClicked
+        // TODO add your handling code here:
+       int rowDipilih = TabelDaftarKontak.getSelectedRow();
+
+        if (rowDipilih != -1) { // Pastikan ada baris yang dipilih
+            // Ambil data dari kolom pada baris yang dipilih
+            String id = TabelDaftarKontak.getValueAt(rowDipilih, 0).toString();
+            String nama = TabelDaftarKontak.getValueAt(rowDipilih, 1).toString();
+            String noTelepon = TabelDaftarKontak.getValueAt(rowDipilih, 2).toString();
+            String kategori = TabelDaftarKontak.getValueAt(rowDipilih, 3).toString();
+
+            // Set data ke JTextField dan JComboBox
+            FieldMasukkanNama.setText(nama);
+            FieldMasukkanNomor.setText(noTelepon);
+            ComboBoxKategori.setSelectedItem(kategori); // Set item JComboBox sesuai kategori
+        }
+    }//GEN-LAST:event_TabelDaftarKontakMouseClicked
+
+    private void TombolMuatKontakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolMuatKontakActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Pilih file CSV untuk diimpor");
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+                String line;
+                // Lewati header (baris pertama)
+                br.readLine();
+
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(",");
+                    if (values.length >= 3) {
+                        String nama = values[1].trim();
+                        String noTelepon = values[2].trim();
+                        String kategori = values[3].trim();
+
+                        // Tambahkan kontak ke database
+                        DatabaseKontak.MenambahKontak(nama, noTelepon, kategori);
+                    }
+                }
+
+                JOptionPane.showMessageDialog(this, "Data berhasil diimpor dari " + selectedFile.getName());
+                MenampilkanKontak(); // Refresh JTable dengan data baru
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error saat mengimpor data: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_TombolMuatKontakActionPerformed
+
+    private void TombolSimpanKontakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolSimpanKontakActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Tentukan lokasi file CSV
+            FileWriter csvWriter = new FileWriter("Daftar_Kontak.csv");
+            csvWriter.append("ID, Nama, Nomor Telepon, Kategori\n"); // Header kolom
+
+            // Ambil data dari JTable dan tulis ke CSV
+            DefaultTableModel model = (DefaultTableModel) TabelDaftarKontak.getModel();
+            for (int i = 0; i < model.getRowCount(); i++) {
+                csvWriter.append(model.getValueAt(i, 0).toString()).append(","); // ID
+                csvWriter.append(model.getValueAt(i, 1).toString()).append(","); // Nama
+                csvWriter.append(model.getValueAt(i, 2).toString()).append(","); // Nomor Telepon
+                csvWriter.append(model.getValueAt(i, 3).toString()).append("\n"); // Kategori
+            }
+
+            csvWriter.flush();
+            csvWriter.close();
+
+            JOptionPane.showMessageDialog(this, "Data berhasil diekspor ke daftar_kontak.csv");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saat mengekspor data: " + e.getMessage());
+        }
+    }//GEN-LAST:event_TombolSimpanKontakActionPerformed
+
+    private void MampilkanKontakBerdasarkanKategori(String kategori) {
+        List<Map<String, String>> kontak = DatabaseKontak.DapatkanKontak();
+        DefaultTableModel model = (DefaultTableModel) TabelDaftarKontak.getModel();
+        model.setRowCount(0); // Bersihkan tabel
+
+        for (Map<String, String> data : kontak) {
+            // Jika kategori adalah "Semua", tampilkan semua data; jika tidak, filter berdasarkan kategori
+            if (kategori.equals("Semua") || kategori.equals(data.get("kategori"))) {
+                model.addRow(new Object[]{
+                    data.get("id"),
+                    data.get("nama"),
+                    data.get("no_telepon"),
+                    data.get("kategori")
+                });
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -348,12 +585,14 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBoxKategori;
+    private javax.swing.JTextField FieldCariKontak;
     private javax.swing.JTextField FieldMasukkanNama;
     private javax.swing.JTextField FieldMasukkanNomor;
     private javax.swing.JLabel LabelCariKontak;
     private javax.swing.JLabel LabelIsiData;
     private javax.swing.JLabel LabelJudul;
     private javax.swing.JLabel LabelKategori;
+    private javax.swing.JLabel LabelMasukkan;
     private javax.swing.JLabel LabelNama;
     private javax.swing.JLabel LabelNoTelp;
     private javax.swing.JTable TabelDaftarKontak;
@@ -363,9 +602,7 @@ public class AplikasiPengelolaKontak extends javax.swing.JFrame {
     private javax.swing.JButton TombolMuatKontak;
     private javax.swing.JToggleButton TombolSimpanKontak;
     private javax.swing.JButton TombolTambahKontak;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

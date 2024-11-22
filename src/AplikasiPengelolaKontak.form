@@ -59,9 +59,9 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="LabelMasukkan" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jTextField3" min="-2" pref="187" max="-2" attributes="0"/>
+                                  <Component id="FieldCariKontak" min="-2" pref="187" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -146,8 +146,8 @@
                   <Component id="LabelCariKontak" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="LabelMasukkan" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="FieldCariKontak" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TombolCari" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -199,6 +199,9 @@
         <Component class="javax.swing.JTextField" name="FieldMasukkanNama">
         </Component>
         <Component class="javax.swing.JTextField" name="FieldMasukkanNomor">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="FieldMasukkanNomorKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="ComboBoxKategori">
           <Events>
@@ -220,11 +223,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Edit Kontak"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TombolEditKontakActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="TombolHapusKontak">
           <Properties>
             <Property name="text" type="java.lang.String" value="Hapus Kontak"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TombolHapusKontakActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelCariKontak">
           <Properties>
@@ -235,27 +244,36 @@
             <Property name="text" type="java.lang.String" value="Cari Kontak"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="LabelMasukkan">
           <Properties>
             <Property name="text" type="java.lang.String" value="Masukkan Nomor Atau Nama"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="FieldCariKontak">
         </Component>
         <Component class="javax.swing.JButton" name="TombolCari">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cari"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TombolCariActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="TombolMuatKontak">
           <Properties>
             <Property name="text" type="java.lang.String" value="Muat Kontak"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TombolMuatKontakActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="TombolSimpanKontak">
           <Properties>
             <Property name="text" type="java.lang.String" value="Simpan Kontak"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TombolSimpanKontakActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -275,6 +293,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TabelDaftarKontakMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
